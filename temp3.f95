@@ -1,5 +1,6 @@
 ! We will do 1 + 3 + 5 + ... + 99;
 program temp3
+    implicit none;
     integer :: sum, i;
     sum = 0;
     

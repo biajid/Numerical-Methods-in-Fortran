@@ -1,6 +1,7 @@
 ! This program will compute the sum of 1^2 + 2^2 + ... + 100^2
 program temp2
-  
+    
+    implicit none;
     integer :: i, sum;
 
     i = 1;

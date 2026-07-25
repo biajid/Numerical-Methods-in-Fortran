@@ -1,9 +1,10 @@
 program temp4
-    real :: a, b, result;
+    implicit none;
+    real :: a, b, result, numerator, denominator;
     print *, 'Enter a and b'
     read *, a, b
 
-    numerator = a ** float(1/5) + b ** (-3.0);
+    numerator = a ** float((1)/5) + b ** (-3);
     denominator = sinh(a) - cosh(b);
 
     result = numerator / denominator
