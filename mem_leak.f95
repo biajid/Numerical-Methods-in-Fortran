@@ -53,6 +53,11 @@ program mem_leak
     print *, "ptr1 is now : ";
     print *, ptr1;
 
+    ! Now I will deallocate ptr2, and see ptr1;
+    deallocate(ptr2);
+
+    print *, ptr1;
+
     
 
 end program mem_leak
