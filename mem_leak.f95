@@ -11,14 +11,12 @@ program mem_leak
     write (*, *) "Association status of the pointer2: ", &
     associated(ptr2);
 
-    ! Now allocate the memory for both pointer
-    allocate(ptr1(1 : 5), stat = istat);
-    allocate(ptr2(5), stat = istat)
+    ! I intentionally did this lousy code to see what happens when pointers are associated and memory is deallocated.
+    ! valgrind shows error because ptr1 is still associated with the memory that ptr2 points to, which will be deallocated later.
 
     ! check the status, success = 0, failure is a code
-    print *, "Status of the allocation of ptr1: ", istat;
-    allocate(ptr2(5), stat = istat)
-    print *, "Status of the allocation of ptr1: ", istat;
+    allocate(ptr2(1 : 5), stat = istat)
+    print *, "Status of the allocation of ptr2: ", istat;
 
     ! Now populate the array.
     call random_seed();
@@ -42,12 +40,12 @@ program mem_leak
     print *, ptr1;
 
     ! now put something else on ptr1.. 
-    allocate(ptr2(3));
+    allocate(ptr2(1 : 3));
 
     ptr2 = [1, 2, 3];
 
     print *, "After re-allocation ptr2 : ";
-    print *, ptr2
+    print *, ptr2;
 
     ! Now check the weirdness in ptr1
     print *, "ptr1 is now : ";
@@ -56,8 +54,12 @@ program mem_leak
     ! Now I will deallocate ptr2, and see ptr1;
     deallocate(ptr2);
 
+    print *, "ptr1 = ";
     print *, ptr1;
 
+    nullify(ptr1); ! Infact, it should have been nullified immediately with ptr2;
+
+    
     
 
 end program mem_leak
